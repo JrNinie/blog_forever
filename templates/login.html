@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/blog/bs/css/bootstrap.css" />
+    <title>login</title>
+  </head>
+  <body>
+    <h3>Login Page</h3>
+    <div class="col-md-6 col-lg-offset-3">
+      <form>
+        <div class="form-group">
+          <label for="user">Username</label>
+          <input type="text" id="user" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password</label>
+          <input type="password" id="pwd" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="verification_code">Verification code</label>
+          <div class="row">
+            <div class="col-md-6">
+              <input
+                type="text"
+                class="form-control verification_code"
+                id="verification_code"
+              />
+            </div>
+            <div class="col-md-6">
+              <img src="/get_verification_code_img/" width="420" height="47" />
+            </div>
+          </div>
+        </div>
+        <input
+          type="button"
+          class="btn btn-default login_btn pull-right"
+          value="submit"
+        />
+      </form>
+    </div>
+  </body>
+</html>
