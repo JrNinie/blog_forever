@@ -11,6 +11,7 @@
     <h3>Login Page</h3>
     <div class="col-md-6 col-lg-offset-3">
       <form>
+        {% csrf_token %}
         <div class="form-group">
           <label for="user">Username</label>
           <input type="text" id="user" class="form-control" />
@@ -23,32 +24,57 @@
           <label for="verification_code">Verification code</label>
           <div class="row">
             <div class="col-md-6">
-              <input
-                type="text"
-                class="form-control verification_code"
-                id="verification_code"
-              />
+              <input type="text" class="form-control" id="verification_code" />
             </div>
             <div class="col-md-6">
-              <img src="/get_verification_code_img/" width="420" height="47" id="verification_code_img" />
-              <small class="form-text text-muted">Click on image to reload another verification code</small>
+              <img
+                src="/get_verification_code_img/"
+                width="420"
+                height="47"
+                id="verification_code_img"
+              />
+              <small class="form-text text-muted"
+                >Click on image to reload another verification code</small
+              >
             </div>
           </div>
         </div>
-        <input
-          type="button"
-          class="btn btn-primary"
-          value="submit"
-        />
+        <input type="button" class="btn btn-primary login-btn" value="submit" />
+        <span class="error"></span>
       </form>
     </div>
 
     <script src="/static/blog/js/jquery-3.6.0.min.js"></script>
     <script>
       // Update verification code image (reload partially login page - img only)
-      $("#verification_code_img").click(function(){
-        $(this)[0].src+="?"
-      })
+      $("#verification_code_img").click(function () {
+        $(this)[0].src += "?";
+      });
+
+      // Submit verification
+      $(".login-btn").click(function () {
+        $.ajax({
+          url: "", //current page /login
+          type: "POST",
+          data: {
+            user: $("#user").val(),
+            pwd: $("#pwd").val(),
+            verification_code: $("#verification_code").val(),
+            csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
+          },
+          success: function (data) {
+            console.log(data);
+
+            if (data.user) {
+              location.href = "/index/";
+            } else {
+              $(".error")
+                .text(data.message)
+                .css({ color: "red", "margin-left": "10px" });
+            }
+          },
+        });
+      });
     </script>
   </body>
 </html>
