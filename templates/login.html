@@ -71,6 +71,10 @@
               $(".error")
                 .text(data.message)
                 .css({ color: "red", "margin-left": "10px" });
+              // Delete error message in 5 seconds
+              // setTimeout(function(){
+              //   $(".error").text("")
+              // }, 5000)
             }
           },
         });
